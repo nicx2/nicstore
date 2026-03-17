@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NICSTORE | Games Offline Profissional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gamer-bg': '#05080f',
+                        'gamer-card': '#0d111a',
+                        'gamer-blue': '#00a2ff',
+                        'gamer-purple': '#4c1d95'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+        body { background-color: #05080f; color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .game-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; max-width: 900px; margin: 0 auto; }
+        .card-game { background: #0d111a; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; transition: 0.3s; height: 100%; display: flex; flex-direction: column; cursor: pointer; }
+        .card-game:hover { transform: translateY(-5px); border-color: #00a2ff; }
+        .img-container { width: 100%; aspect-ratio: 10/14; overflow: hidden; position: relative; background: #111; }
+        .img-square { width: 100%; height: 100%; object-fit: cover; }
+        .grid-capas { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; padding: 15px; backdrop-filter: blur(10px); justify-content: center; align-items: start; overflow-y: auto; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
+    </style>
+</head>
+<body class="antialiased text-white text-left">
+
+    <nav class="sticky top-0 z-40 bg-gamer-bg/90 backdrop-blur-xl border-b border-white/5 p-4 flex justify-between items-center px-6">
+        <h1 class="text-xl font-black text-gamer-blue italic uppercase tracking-tighter text-left">NICSTORE</h1>
+        <a href="https://wa.me/5577999451274" target="_blank" class="bg-gamer-blue text-black px-4 py-2 rounded-lg font-bold text-[10px] uppercase transition hover:bg-white">Suporte</a>
+    </nav>
+
+    <header class="max-w-7xl mx-auto p-6 mt-4 text-center">
+        <h2 class="text-3xl font-black mb-6 uppercase italic tracking-tight italic">CATÁLOGO <span class="text-gamer-blue">GAMES</span></h2>
+        <input type="text" id="mainSearch" placeholder="Pesquisar um jogo..." class="w-full max-w-xl bg-gamer-card border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-gamer-blue transition mx-auto block text-center text-sm">
+    </header>
+
+    <section id="combos" class="game-grid pb-24 text-left"></section>
+
+    <div id="gameModal" class="modal">
+        <div class="bg-gamer-card w-full max-w-2xl rounded-2xl overflow-hidden border border-white/10 relative my-4 shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-50 bg-black/70 w-10 h-10 rounded-full text-white text-2xl font-bold">&times;</button>
+            <div id="modal-header-img" class="w-full h-64 md:h-96 overflow-hidden relative border-b border-white/5"></div>
+            <div class="p-6 md:p-8">
+                <h3 id="modal-title" class="text-2xl md:text-3xl font-black mb-2 uppercase italic tracking-tighter text-left text-gamer-blue"></h3>
+                <div class="mb-8 p-4 bg-white/5 rounded-xl border border-white/5">
+                    <div class="flex items-baseline gap-2 text-left">
+                        <span id="modal-price" class="text-4xl font-black text-white tracking-tighter"></span>
+                        <span class="text-gamer-blue text-xs font-bold uppercase italic text-left">no Pix</span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 mb-10">
+                    <button id="btnComprarModal" class="w-full bg-gamer-purple hover:bg-purple-600 text-white py-5 rounded-xl font-black uppercase shadow-lg transition active:scale-95 italic text-sm text-center">🚀 COMPRAR AGORA</button>
+                    <button onclick="window.open('https://wa.me/5577999451274')" class="w-full bg-white/5 border border-white/10 text-white py-4 rounded-xl font-black uppercase text-xs transition hover:bg-white/10">Dúvidas no WhatsApp</button>
+                </div>
+                <div class="border-t border-white/10 pt-8 text-left text-sm font-bold uppercase italic text-gamer-blue mb-4">DESCRIÇÃO DO ANÚNCIO:</div>
+                <div id="modal-list" class="text-gray-300 text-[10px] mb-8 whitespace-pre-wrap leading-relaxed bg-black/40 p-5 rounded-2xl border border-white/5 max-h-[400px] overflow-y-auto custom-scroll text-left"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div id="checkoutContent" class="bg-gamer-card w-full max-w-md rounded-3xl p-8 border border-gamer-blue/30 relative my-auto shadow-2xl text-center"></div>
+    </div>
+
+    <script>
+        const MINHA_CHAVE_PIX = "00020101021126360014br.gov.bcb.pix0114+55779994512745204000053039865802BR5918NICOLAS N PINHEIRO6013VITORIA DA CO62070503***63049DCD";
+
+        const combos = [
+            { 
+                name: "Combo Elite +125 Jogos", price: "89,90", isElite: true,
+                img: ["https://i.postimg.cc/yYGPChpY/library-600x900-2x.jpg", "https://i.postimg.cc/43QNV5jP/images-(4).webp", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/library_600x900_2x.jpg", "https://i.postimg.cc/TY5dCGZK/images-(5).webp"],
+                games: "⚡ ENTREGA AUTOMÁTICA ⚡\n\nJOGOS PARA PC STEAM, novos jogos adicionados frequentemente.\n\n✅ Comprou, Acessou! Após a compra você recebe IMEDIATAMENTE uma conta da Steam compartilhada para jogar no modo Offline.\n\n📚 CATÁLOGO DE JOGOS (Destaques):\n• Black Myth Wukong - Deluxe Edition\n• Resident Evil Requiem\n• Elden Ring + DLC Shadow\n• God of War Ragnarök\n• Ghost of Tsushima\n• The Last of Us Part I & II\n• Marvel's Spider-Man 2\n• GTA V Rockstar Offline\n\nLISTA COMPLETA:\nA Plague Tale, Age of Empires II, Assetto Corsa, Baldurs Gate 3, Batman Arkham Saga, Blasphemous 1+2, Bully, Call of Duty (MW Saga, Black Ops Saga, Vanguard), Cities Skylines, Civilization VI, Expedition 33, Contraband Police, Cyberpunk 2077, Danganronpa, Dave the Diver, Dead Cells, Demon Slayer 2, DMC Saga, Dragon Ball (Sparking Zero, FighterZ, Kakarot), FC 25, PES 21, Euro Truck 2, Fallout Saga, FIFA 15-26, Forza 4-5, God of War Saga, GTA Saga completa, Hades, Halo MCC, Hitman, Hogwarts Legacy, Hollow Knight, Horizon Saga, Jurassic World 2, Kingdom Come II, LEGO Saga completa, Little Nightmares 1-3, MK 9-11, Naruto Storm Saga, Palworld, Project Zomboid, RDR 2, RE Saga completa, Sekiro, Silent Hill 2, Skyrim, Sniper Elite, Sons of the Forest, Stardew Valley, Starfield, Uncharted Saga, Wallpaper Engine, Watch Dogs e WorldBox." 
+            },
+            { name: "Resident Evil 9 Requiem", price: "59,90", img: "https://i.postimg.cc/s2Y1KyGq/images-(3).webp", games: "🧟 Resident Evil Requiem (Lançamento)" },
+            { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/TY5dCGZK/images-(5).webp", games: "🌿 TLOU Part I + Part II Remastered" },
+            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/43QNV5jP/images-(4).webp", games: "🪓 Ragnarök + God of War (2018)" },
+            { name: "Combo LEGO Master (16 Jogos)", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "🧱 16 JOGOS LEGO:\nBatman, Marvel, Avengers, Harry Potter e muito mais." },
+            { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "🧟 RE 2, 3, 4 Remake + Village e RE7" },
+            { name: "Ghost of Tsushima + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "👺 Ghost + Monster Hunter" },
+            { name: "BG3 + The Quarry + Zoo + Fran", price: "29,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/library_600x900_2x.jpg", games: "🐉 RPG Pack Completo" },
+            { name: "Mortal Kombat Saga + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "🥊 MK 9, 10, 11 + DBZ FighterZ" },
+            { name: "Combo Dragon Ball", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1790600/library_600x900_2x.jpg", games: "🐉 Sparking! ZERO, Kakarot e FighterZ" },
+            { name: "Combo Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "🌫️ Silent Hill 2 Remake" },
+            { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "🕷️ Spider-Man Saga" },
+            { name: "Demon Slayer 2", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "⚔️ Hinokami Chronicles 2" },
+            { name: "Cyberpunk 2077 + Dave", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900_2x.jpg", games: "🦾 Cyberpunk + Dave the Diver" },
+            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "🦇 Batman Knight/Orig/City/Asy" },
+            { name: "Metal Gear Saga + Rising", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113400/library_600x900_2x.jpg", games: "⚙️ MGS Saga Completa" },
+            { name: "Hogwarts + Sons of Forest", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900_2x.jpg", games: "🪄 Magia e Sobrevivência" },
+            { name: "Halo MCC + Outlast 1/2", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976730/library_600x900_2x.jpg", games: "🔫 Master Chief Collection + Outlast" },
+            { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "🏎️ Forza Pack" },
+            { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "☢️ Skyrim + Fallouts" },
+            { name: "Kingdom Come 2 + Plague Tale", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/379430/library_600x900_2x.jpg", games: "⚔️ Medieval Pack" },
+            { name: "Little Nightmares 1/2/3", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/424840/library_600x900_2x.jpg", games: "🔦 LN Saga" },
+            { name: "Project Zomboid + Subnautica", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108600/library_600x900_2x.jpg", games: "🧟 Survival Pack" },
+            { name: "Palworld + DB Xenoverse 2", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1623730/library_600x900_2x.jpg", games: "🐉 Palworld Pack" },
+            { name: "PES 21 + Jurassic World 2", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "⚽ PES + Dinos" },
+            { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "🚛 Truck Pack" },
+            { name: "Stranded + Cities + Age II", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313120/library_600x900_2x.jpg", games: "🏗️ Simuladores" },
+            { name: "Dead Cells + Hollow + Hades", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/588650/library_600x900_2x.jpg", games: "💀 Indie Pack" },
+            { name: "Blasphemous 1/2 + Cuphead", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2114740/library_600x900_2x.jpg", games: "⛪ Soulslike" },
+            { name: "Supermarket + Contraband", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2670630/library_600x900_2x.jpg", games: "🛂 Job Sims" },
+            { name: "Wallpaper + People Playground", price: "9,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/431960/library_600x900_2x.jpg", games: "🖥️ Wallpaper Kit" },
+            { name: "Combo Naruto Storm", price: "20,00", img: "https://i.postimg.cc/zvs19b97/images-(14).jpg", games: "🍥 Naruto Saga" },
+            { name: "EA Sports 26", price: "20,00", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "⚽ FC 26 + F1" },
+            { name: "Football Manager", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2252570/library_600x900_2x.jpg", games: "📋 FM 24" },
+            { name: "Combo Uncharted", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games: "💎 Uncharted" },
+            { name: "Stardew Valley + Isaac", price: "15,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/413150/library_600x900_2x.jpg", games: "👩‍🌾 Stardew + Isaac" },
+            { name: "Black Myth: Wukong Solo", price: "15,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg", games: "🐵 Wukong Solo" },
+            { name: "GTA V Rockstar Offline", price: "10,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/library_600x900_2x.jpg", games: "🚗 GTA V" },
+            { name: "Devil May Cry 1 ao 5", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601150/library_600x900_2x.jpg", games: "⚔️ Saga DMC" },
+            { name: "Combo Raft + WorldBox", price: "16,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/648800/library_600x900_2x.jpg", games: "🦈 Raft + WorldBox" }
+        ];
+
+        function renderCombos(list) {
+            const grid = document.getElementById('combos');
+            grid.innerHTML = '';
+            list.forEach(c => {
+                let imgHTML = c.isElite ? `<div class="grid-capas">${c.img.map(u => `<img src="${u}" class="w-full h-full object-cover">`).join('')}</div>` : `<img src="${c.img}" class="img-square" onerror="this.src='https://via.placeholder.com/600x900/0d111a/ffffff?text=NICSTORE'">`;
+                grid.innerHTML += `<div class="card-game" onclick="openDetails('${c.name}')"><div class="img-container">${imgHTML}</div><div class="p-3 text-center flex-grow flex flex-col justify-end text-left"><h4 class="text-[9px] font-bold uppercase truncate text-gray-500 mb-1">${c.name}</h4><span class="text-white font-black text-sm uppercase italic">R$ ${c.price}</span></div></div>`;
+            });
+        }
+
+        function openDetails(name) {
+            const c = combos.find(x => x.name === name);
+            const headerImg = document.getElementById('gameModal').querySelector('#modal-header-img');
+            headerImg.innerHTML = c.isElite ? `<div class="grid-capas h-full">${c.img.map(u => `<img src="${u}" class="w-full h-full object-cover">`).join('')}</div>` : `<img src="${c.img}" class="w-full h-full object-cover">`;
+            document.getElementById('modal-title').innerText = c.name;
+            document.getElementById('modal-price').innerText = `R$ ${c.price}`;
+            document.getElementById('modal-list').innerText = c.games;
+            document.getElementById('gameModal').style.display = 'flex';
+            document.getElementById('btnComprarModal').onclick = () => { document.getElementById('gameModal').style.display = 'none'; renderCheckout(c); };
+        }
+
+        function renderCheckout(c) {
+            const content = document.getElementById('checkoutContent');
+            content.innerHTML = `<button onclick="closeCheckout()" class="absolute top-4 right-6 text-2xl text-gray-500 hover:text-white">&times;</button><div class="space-y-6"><h3 class="text-lg font-black uppercase text-gamer-blue italic text-center">Pagar via Pix</h3><div class="bg-white p-2 inline-block rounded-xl mx-auto shadow-2xl"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(MINHA_CHAVE_PIX)}"></div><input type="email" id="cEmail" placeholder="Seu E-mail" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-center outline-none"><div class="flex gap-2"><input type="text" id="pixInp" value="${MINHA_CHAVE_PIX}" readonly class="bg-black/40 border border-white/5 rounded-xl px-4 py-3 w-full text-[7px] outline-none"><button onclick="copyPix()" class="bg-gamer-blue text-black px-4 py-3 rounded-xl font-black uppercase text-[10px]">Copiar</button></div><button onclick="window.open('https://wa.me/5577999451274?text=Paguei R$ ${c.price} pelo ${c.name}. E-mail: ' + document.getElementById('cEmail').value)" class="w-full bg-white text-black py-4 rounded-xl font-black uppercase text-xs text-center">Confirmar no WhatsApp</button></div>`;
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function copyPix() { const el = document.createElement('textarea'); el.value = document.getElementById('pixInp').value; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); alert("Pix Copiado! ✅"); }
+        function closeModal() { document.getElementById('gameModal').style.display = 'none'; }
+        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+        document.getElementById('mainSearch').oninput = (e) => { const f = combos.filter(c => c.name.toLowerCase().includes(e.target.value.toLowerCase())); renderCombos(f); };
+
+        renderCombos(combos);
+    </script>
+</body>
+</html>
+    
