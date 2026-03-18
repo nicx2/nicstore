@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NICSTORE | Games Offline</title>
+    <title>NICSTORE | Games Offline Profissional</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,15 +27,23 @@
         .badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; border-radius: 6px; font-size: 7px; font-weight: 900; text-transform: uppercase; z-index: 10; background: #00a2ff; color: #000; }
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
+        
+        /* NOTIFICAÇÃO PIX */
+        #pixToast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #00a2ff; color: black; padding: 12px 24px; border-radius: 50px; font-weight: 800; font-size: 12px; z-index: 1000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,162,255,0.4); display: flex; items-center: center; gap: 8px; }
+        #pixToast.show { top: 30px; }
     </style>
 </head>
 <body class="antialiased text-left">
+
+    <div id="pixToast">
+        <span>✅ PIX COPIADO COM SUCESSO!</span>
+    </div>
 
     <nav class="sticky top-0 z-40 bg-gamer-bg/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center px-6">
         <div class="text-left">
             <h1 class="text-2xl font-black text-white italic uppercase tracking-tighter leading-none">NIC<span class="text-gamer-blue">STORE</span></h1>
             <div class="flex items-center text-[8px] font-bold uppercase tracking-widest text-gray-400 mt-1">
-                <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> <span>On-line</span>
+                <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> <span>On-line</span>
             </div>
         </div>
         <a href="https://wa.me/5577999451274" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase">Suporte</a>
@@ -50,7 +58,7 @@
 
     <div id="gameModal" class="modal" onclick="closeModal()">
         <div class="bg-gamer-card w-full max-w-md rounded-[32px] overflow-hidden border border-white/10 relative p-8 shadow-2xl" onclick="event.stopPropagation()">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-white/50 text-3xl">&times;</button>
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-white/50 text-3xl font-light">&times;</button>
             <div id="modal-header-img" class="w-full h-48 rounded-2xl overflow-hidden mb-6 border border-white/5"></div>
             <h3 id="modal-title" class="text-2xl font-black text-gamer-blue mb-2 uppercase italic tracking-tighter"></h3>
             <div class="bg-white/5 p-4 rounded-2xl mb-4 flex justify-between items-center">
@@ -69,13 +77,9 @@
 
         const combos = [
             { 
-                name: "Combo Elite +125 Jogos", 
-                price: "89,90", 
-                isElite: true, 
-                badge: "🔥 TOP 1", 
+                name: "Combo Elite +125 Jogos", price: "89,90", isElite: true, badge: "🔥 TOP 1", 
                 img: ["https://i.postimg.cc/yYGPChpY/library-600x900-2x.jpg", "https://i.postimg.cc/43QNV5jP/images-(4).webp", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", "https://i.postimg.cc/s2Y1KyGq/images-(3).webp"], 
-                games: "🚨 INCLUI: RESIDENT EVIL REQUIEM (Lançamento)\n\n" +
-                       "TOP 50 JOGOS DA CONTA:\n\nBlack Myth: Wukong\n\nElden Ring + DLC\n\nGod of War Ragnarök\n\nSpider-Man 2\n\nGhost of Tsushima\n\nTLOU Part I & II\n\nDark Souls Trilogy\n\nForza Horizon 5 & 4\n\nAmerican Truck Sim\n\nEuro Truck Sim 2\n\nRE 4, 3, 2 Remake\n\nRE Village & RE 7\n\nDoom Eternal\n\nCuphead + DLC\n\nDead Cells\n\nDB FighterZ\n\nMK 1 Ultimate\n\nSaga LEGO Batman\n\nSaga LEGO Marvel\n\nUncharted Saga\n\nDead Space Remake\n\nMetal Gear Rising\n\nBatman Arkham Saga\n\nMK 11 Ultimate\n\nDMC 5 + Vergil\n\nNieR:Automata\n\nDying Light\n\nFallout 4\n\nHades\n\nInjustice 2\n\nHotline Miami\n\nDays Gone\n\nShadow of War\n\nThe Witcher 3\n\nRise of Tomb Raider\n\nDetroit: Become Human\n\nLittle Nightmares\n\nARK Survival\n\nState of Decay 2\n\nBioShock Remake\n\nCrash Trilogy\n\nDishonored 2\n\nPortal 1 & 2\n\n... E MUITO MAIS (+100 JOGOS)!" 
+                games: "🚨 INCLUI: RESIDENT EVIL REQUIEM (Lançamento)\n\nTOP 50 JOGOS DA CONTA:\n\nBlack Myth: Wukong\n\nElden Ring + DLC\n\nGod of War Ragnarök\n\nSpider-Man 2\n\nGhost of Tsushima\n\nTLOU Part I & II\n\nDark Souls Trilogy\n\nForza Horizon 5 & 4\n\nAmerican Truck Sim\n\nEuro Truck Sim 2\n\nRE 4, 3, 2 Remake\n\nRE Village & RE 7\n\nDoom Eternal\n\nCuphead + DLC\n\nDead Cells\n\nDB FighterZ\n\nMK 1 Ultimate\n\nSaga LEGO Batman\n\nSaga LEGO Marvel\n\nUncharted Saga\n\nDead Space Remake\n\nMetal Gear Rising\n\nBatman Arkham Saga\n\nMK 11 Ultimate\n\nDMC 5 + Vergil\n\nNieR:Automata\n\nDying Light\n\nFallout 4\n\nHades\n\nInjustice 2\n\nHotline Miami\n\nDays Gone\n\nShadow of War\n\nThe Witcher 3\n\nRise of Tomb Raider\n\nDetroit: Become Human\n\nLittle Nightmares\n\nARK Survival\n\nState of Decay 2\n\nBioShock Remake\n\nCrash Trilogy\n\nDishonored 2\n\nPortal 1 & 2\n\n... E MUITO MAIS (+100 JOGOS)!" 
             },
             { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://i.postimg.cc/s2Y1KyGq/images-(3).webp", games: "Resident Evil Requiem\n\nLançamento Oficial 2026" },
             { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/TY5dCGZK/images-(5).webp", games: "TLOU Part I\n\nTLOU Part II Remastered" },
@@ -98,7 +102,7 @@
             { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "Euro Truck 2\n\nSnowRunner" },
             { name: "Stranded + Cities + Age II", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313120/library_600x900_2x.jpg", games: "Stranded Deep\n\nCities Skylines\n\nAge II" },
             { name: "Dead Cells + Hollow + Hades", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/588650/library_600x900_2x.jpg", games: "Dead Cells\n\nHollow Knight\n\nHades" },
-            { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "Skyrim + Fallout 4 e 76" },
+            { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "Skyrim\n\nFallout 4 e 76" },
             { name: "Metal Gear Saga + Rising", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113400/library_600x900_2x.jpg", games: "MGS V + Rising + Master Collection" },
             { name: "Combo Uncharted", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games: "Uncharted 4\n\nLost Legacy" },
             { name: "Devil May Cry 1 ao 5", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601150/library_600x900_2x.jpg", games: "DMC 1, 2, 3, 4, 5" },
@@ -106,7 +110,7 @@
             { name: "BG3 + The Quarry + Zoo", price: "29,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/library_600x900_2x.jpg", games: "BG 3, The Quarry, Planet Zoo" },
             { name: "Little Nightmares 1/2/3", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/424840/library_600x900_2x.jpg", games: "Little Nightmares I, II e III" },
             { name: "Black Myth: Wukong Solo", price: "15,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg", games: "Wukong Deluxe Solo" },
-            { name: "Cyberpunk 2077 + Dave", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900_2x.jpg", games: "Cyberpunk 2077 + Dave" },
+            { name: "Cyberpunk 2077 + Dave", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900_2x.jpg", games: "Cyberpunk 2077\n\nDave" },
             { name: "Blasphemous 1/2 + Cuphead", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2114740/library_600x900_2x.jpg", games: "Blasphemous I & II + Cuphead" },
             { name: "Stardew Valley + Isaac", price: "15,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/413150/library_600x900_2x.jpg", games: "Stardew + Isaac" },
             { name: "Football Manager 24", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2252570/library_600x900_2x.jpg", games: "FM 2024 Oficial" },
@@ -121,7 +125,7 @@
             const grid = document.getElementById('combos'); grid.innerHTML = '';
             list.forEach(c => {
                 let img = c.isElite ? `<div class="grid-capas">${c.img.map(u => `<img src="${u}">`).join('')}</div>` : `<img src="${c.img}" class="img-square">`;
-                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white">R$ ${c.price}</span></div></div>`;
+                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left">R$ ${c.price}</span></div></div>`;
             });
         }
 
@@ -137,10 +141,18 @@
         document.getElementById('btnComprar').onclick = () => {
             const email = document.getElementById('cEmail').value;
             if(!email.includes('@')) { alert('E-mail necessário!'); return; }
+            
             const dummy = document.createElement("textarea"); document.body.appendChild(dummy);
             dummy.value = MINHA_CHAVE_PIX; dummy.select(); document.execCommand("copy"); document.body.removeChild(dummy);
-            alert('Pix copiado! ✅');
-            window.open(`https://wa.me/5577999451274?text=${encodeURIComponent("Olá! Paguei R$ "+selecionado.price+" pelo "+selecionado.name+". E-mail: "+email)}`);
+            
+            // Notificação Bonita
+            const toast = document.getElementById('pixToast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                window.open(`https://wa.me/5577999451274?text=${encodeURIComponent("Olá! Paguei R$ "+selecionado.price+" pelo "+selecionado.name+". E-mail: "+email)}`);
+            }, 1500);
         };
 
         function closeModal() { document.getElementById('gameModal').style.display = 'none'; }
