@@ -28,16 +28,13 @@
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
         
-        /* NOTIFICAÇÃO PIX */
-        #pixToast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #00a2ff; color: black; padding: 12px 24px; border-radius: 50px; font-weight: 800; font-size: 12px; z-index: 1000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,162,255,0.4); display: flex; items-center: center; gap: 8px; }
+        #pixToast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #00a2ff; color: black; padding: 12px 24px; border-radius: 50px; font-weight: 800; font-size: 11px; z-index: 1000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,162,255,0.4); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
         #pixToast.show { top: 30px; }
     </style>
 </head>
 <body class="antialiased text-left">
 
-    <div id="pixToast">
-        <span>✅ PIX COPIADO COM SUCESSO!</span>
-    </div>
+    <div id="pixToast"><span>✅ PIX COPIADO COM SUCESSO!</span></div>
 
     <nav class="sticky top-0 z-40 bg-gamer-bg/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center px-6">
         <div class="text-left">
@@ -46,18 +43,18 @@
                 <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> <span>On-line</span>
             </div>
         </div>
-        <a href="https://wa.me/5577999451274" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase">Suporte</a>
+        <a href="https://wa.me/5577999451274" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase shadow-[0_0_15px_rgba(0,162,255,0.4)]">Suporte</a>
     </nav>
 
     <header class="p-10 text-left">
-        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
+        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none text-left">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
         <input type="text" id="mainSearch" placeholder="O que você quer jogar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue text-sm">
     </header>
 
     <section id="combos" class="game-grid pb-32"></section>
 
     <div id="gameModal" class="modal" onclick="closeModal()">
-        <div class="bg-gamer-card w-full max-w-md rounded-[32px] overflow-hidden border border-white/10 relative p-8 shadow-2xl" onclick="event.stopPropagation()">
+        <div class="bg-gamer-card w-full max-w-md rounded-[32px] border border-white/10 relative p-8 shadow-2xl" onclick="event.stopPropagation()">
             <button onclick="closeModal()" class="absolute top-6 right-6 text-white/50 text-3xl font-light">&times;</button>
             <div id="modal-header-img" class="w-full h-48 rounded-2xl overflow-hidden mb-6 border border-white/5"></div>
             <h3 id="modal-title" class="text-2xl font-black text-gamer-blue mb-2 uppercase italic tracking-tighter"></h3>
@@ -67,13 +64,17 @@
             </div>
             <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-48 overflow-y-auto custom-scroll pr-2 whitespace-pre-wrap border-t border-white/5 pt-3 mb-4"></div>
             <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
-            <button id="btnComprar" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs">Pagar via Pix</button>
+            
+            <button id="mainBuyBtn" onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
+                Pagar via Pix
+            </button>
         </div>
     </div>
 
     <script>
         const MINHA_CHAVE_PIX = "00020101021126360014br.gov.bcb.pix0114+55779994512745204000053039865802BR5918NICOLAS N PINHEIRO6013VITORIA DA CO62070503***63049DCD";
         let selecionado = {};
+        let pixCopiado = false;
 
         const combos = [
             { 
@@ -86,14 +87,14 @@
             { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/43QNV5jP/images-(4).webp", games: "God of War Ragnarök\n\nGod of War (2018)" },
             { name: "Combo LEGO Master", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO (16 Jogos)" },
             { name: "PES 21 + Jurassic World 2", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "PES 2021 Atualizado\n\nJurassic World Evolution 2" },
-            { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2, 3, 4 Remake, Village e RE7" },
+            { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2 Remake, 3, 4, Village e RE7" },
             { name: "Ghost + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "Ghost of Tsushima\n\nMonster Hunter Rise" },
             { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 9, 10, 11\n\nDBZ FighterZ" },
             { name: "Combo Dragon Ball", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1790600/library_600x900_2x.jpg", games: "Sparking! ZERO\n\nDBZ Kakarot\n\nDBZ FighterZ" },
             { name: "Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake Oficial" },
-            { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered\n\nSpider-Man Miles Morales" },
+            { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered\n\nMiles Morales" },
             { name: "Demon Slayer 2", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "Hinokami Chronicles 2" },
-            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Arkham Knight, City, Origins, Asylum" },
+            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Saga completa Batman Arkham" },
             { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza 5 e 4 Edições Premium" },
             { name: "Hogwarts + Sons of Forest", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900_2x.jpg", games: "Hogwarts Legacy\n\nSons of the Forest" },
             { name: "EA FC 26 + F1", price: "20,00", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "EA FC 2026\n\nF1 2026 Sports" },
@@ -102,7 +103,7 @@
             { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "Euro Truck 2\n\nSnowRunner" },
             { name: "Stranded + Cities + Age II", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313120/library_600x900_2x.jpg", games: "Stranded Deep\n\nCities Skylines\n\nAge II" },
             { name: "Dead Cells + Hollow + Hades", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/588650/library_600x900_2x.jpg", games: "Dead Cells\n\nHollow Knight\n\nHades" },
-            { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "Skyrim\n\nFallout 4 e 76" },
+            { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "Skyrim + Fallout 4 e 76" },
             { name: "Metal Gear Saga + Rising", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113400/library_600x900_2x.jpg", games: "MGS V + Rising + Master Collection" },
             { name: "Combo Uncharted", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games: "Uncharted 4\n\nLost Legacy" },
             { name: "Devil May Cry 1 ao 5", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601150/library_600x900_2x.jpg", games: "DMC 1, 2, 3, 4, 5" },
@@ -125,12 +126,17 @@
             const grid = document.getElementById('combos'); grid.innerHTML = '';
             list.forEach(c => {
                 let img = c.isElite ? `<div class="grid-capas">${c.img.map(u => `<img src="${u}">`).join('')}</div>` : `<img src="${c.img}" class="img-square">`;
-                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left">R$ ${c.price}</span></div></div>`;
+                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left flex-grow flex flex-col justify-end"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left">R$ ${c.price}</span></div></div>`;
             });
         }
 
         function openMod(name) {
             selecionado = combos.find(x => x.name === name);
+            pixCopiado = false; // Reseta o estado ao abrir
+            const btn = document.getElementById('mainBuyBtn');
+            btn.innerText = "Pagar via Pix";
+            btn.style.backgroundColor = "#00a2ff";
+            
             document.getElementById('modal-title').innerText = selecionado.name;
             document.getElementById('modal-price').innerText = "R$ " + selecionado.price;
             document.getElementById('modal-list').innerText = selecionado.games;
@@ -138,22 +144,30 @@
             document.getElementById('gameModal').style.display = 'flex';
         }
 
-        document.getElementById('btnComprar').onclick = () => {
+        function handlePurchase() {
             const email = document.getElementById('cEmail').value;
-            if(!email.includes('@')) { alert('E-mail necessário!'); return; }
+            if(!email.includes('@')) { alert('Por favor, coloque seu e-mail para entrega!'); return; }
             
-            const dummy = document.createElement("textarea"); document.body.appendChild(dummy);
-            dummy.value = MINHA_CHAVE_PIX; dummy.select(); document.execCommand("copy"); document.body.removeChild(dummy);
-            
-            // Notificação Bonita
-            const toast = document.getElementById('pixToast');
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-                window.open(`https://wa.me/5577999451274?text=${encodeURIComponent("Olá! Paguei R$ "+selecionado.price+" pelo "+selecionado.name+". E-mail: "+email)}`);
-            }, 1500);
-        };
+            const btn = document.getElementById('mainBuyBtn');
+
+            if (!pixCopiado) {
+                // Passo 1: Copiar o Pix
+                const dummy = document.createElement("textarea"); document.body.appendChild(dummy);
+                dummy.value = MINHA_CHAVE_PIX; dummy.select(); document.execCommand("copy"); document.body.removeChild(dummy);
+                
+                const toast = document.getElementById('pixToast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+                
+                // Mudar o botão para o estado de confirmação
+                btn.innerText = "JÁ FIZ O PAGAMENTO ✅";
+                btn.style.backgroundColor = "#00ff88"; // Verde Gamer
+                pixCopiado = true;
+            } else {
+                // Passo 2: Ir para o WhatsApp
+                window.open(`https://wa.me/5577999451274?text=${encodeURIComponent("Olá Nicolas! Já fiz o pagamento de R$ "+selecionado.price+" pelo "+selecionado.name+". E-mail para entrega: "+email)}`);
+            }
+        }
 
         function closeModal() { document.getElementById('gameModal').style.display = 'none'; }
         document.getElementById('mainSearch').oninput = (e) => { const f = combos.filter(c => c.name.toLowerCase().includes(e.target.value.toLowerCase())); render(f); };
