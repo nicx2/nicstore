@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NICSTORE | Games Offline Profissional</title>
+    <title>NICSTORE | Games Offline</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { 'gamer-bg': '#02040a', 'gamer-card': '#0d111a', 'gamer-blue': '#00a2ff' },
-                    animation: { 'pulse-slow': 'pulse 3s infinite' }
+                    colors: { 'gamer-bg': '#02040a', 'gamer-card': '#0d111a', 'gamer-blue': '#00a2ff' }
                 }
             }
         }
@@ -19,64 +18,64 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
         body { background-color: #02040a; color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         .game-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 15px; max-width: 900px; margin: 0 auto; }
-        .card-game { background: #0d111a; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; transition: 0.3s; height: 100%; display: flex; flex-direction: column; position: relative; }
+        .card-game { background: #0d111a; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; transition: 0.3s; height: 100%; display: flex; flex-direction: column; position: relative; cursor: pointer; }
         .card-game:active { transform: scale(0.96); border-color: #00a2ff; }
         .img-container { width: 100%; aspect-ratio: 10/14; overflow: hidden; background: #000; position: relative; }
         .img-square { width: 100%; height: 100%; object-fit: cover; }
         .grid-capas { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; gap: 1px; background: #000; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; padding: 15px; backdrop-filter: blur(15px); justify-content: center; align-items: center; overflow-y: auto; }
-        .badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; border-radius: 6px; font-size: 7px; font-weight: 900; text-transform: uppercase; z-index: 10; background: #00a2ff; color: #000; box-shadow: 0 0 10px rgba(0,162,255,0.5); }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; border-radius: 6px; font-size: 7px; font-weight: 900; text-transform: uppercase; z-index: 10; background: #00a2ff; color: #000; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; background: #00ff88; }
         .custom-scroll::-webkit-scrollbar { width: 6px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="sticky top-0 z-40 bg-gamer-bg/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center px-6">
+    <nav class="sticky top-0 z-40 bg-gamer-bg/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center px-6 text-left">
         <div class="text-left">
-            <h1 class="text-2xl font-black text-white italic uppercase tracking-tighter leading-none text-left">NIC<span class="text-gamer-blue">STORE</span></h1>
-            <div class="flex items-center text-[8px] font-bold uppercase tracking-widest text-gray-400 mt-1 text-left">
-                <span id="statusDot" class="status-dot"></span> <span id="statusText">Suporte</span>
+            <h1 class="text-2xl font-black text-white italic uppercase tracking-tighter leading-none">NIC<span class="text-gamer-blue">STORE</span></h1>
+            <div class="flex items-center text-[8px] font-bold uppercase tracking-widest text-gray-400 mt-1">
+                <span class="status-dot"></span> <span>Suporte On-line</span>
             </div>
         </div>
         <a href="https://wa.me/5577999451274" target="_blank" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase shadow-[0_0_15px_rgba(0,162,255,0.4)]">Suporte</a>
     </nav>
 
-    <header class="p-10 text-center text-left">
-        <div class="inline-block bg-white/5 border border-white/10 px-4 py-1 rounded-full text-[9px] font-bold text-gamer-blue mb-4 uppercase tracking-widest text-left">Games Originais Steam Offline</div>
-        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none text-left">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500 text-left">GAMES</span></h2>
-        <div class="relative max-w-md mx-auto text-left text-left">
-            <input type="text" id="mainSearch" placeholder="O que você quer jogar hoje?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue transition shadow-2xl text-sm text-center">
+    <header class="p-10 text-left">
+        <div class="inline-block bg-white/5 border border-white/10 px-4 py-1 rounded-full text-[9px] font-bold text-gamer-blue mb-4 uppercase tracking-widest">Acesso Vitalício Steam Offline</div>
+        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none text-left">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
+        <div class="relative max-w-md mx-auto">
+            <input type="text" id="mainSearch" placeholder="O que você quer jogar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue transition shadow-2xl text-sm text-center">
         </div>
     </header>
 
     <div class="grid grid-cols-3 gap-3 px-4 mb-10 max-w-lg mx-auto text-center">
-        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5 text-center"><p class="text-lg mb-1">🚀</p><p class="text-[7px] font-black uppercase text-gray-400">Entrega Rápida</p></div>
-        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5 text-center"><p class="text-lg mb-1">🛡️</p><p class="text-[7px] font-black uppercase text-gray-400">100% Seguro</p></div>
-        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5 text-center"><p class="text-lg mb-1">♾️</p><p class="text-[7px] font-black uppercase text-gray-400">Vitalício</p></div>
+        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5"><p class="text-lg mb-1">🚀</p><p class="text-[7px] font-black uppercase text-gray-400">Entrega Rápida</p></div>
+        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5"><p class="text-lg mb-1">🛡️</p><p class="text-[7px] font-black uppercase text-gray-400">100% Seguro</p></div>
+        <div class="bg-gamer-card/40 p-4 rounded-2xl border border-white/5"><p class="text-lg mb-1">♾️</p><p class="text-[7px] font-black uppercase text-gray-400">Vitalício</p></div>
     </div>
 
-    <section id="combos" class="game-grid pb-32 text-left text-left"></section>
+    <section id="combos" class="game-grid pb-32 text-left"></section>
 
     <div id="gameModal" class="modal" onclick="closeModal()">
         <div class="bg-gamer-card w-full max-w-md rounded-[32px] overflow-hidden border border-white/10 relative p-8 shadow-2xl text-left" onclick="event.stopPropagation()">
             <button onclick="closeModal()" class="absolute top-6 right-6 text-white/50 text-3xl font-light">&times;</button>
-            <div id="modal-header-img" class="w-full h-64 rounded-2xl overflow-hidden mb-6 border border-white/5 text-left"></div>
+            <div id="modal-header-img" class="w-full h-64 rounded-2xl overflow-hidden mb-6 border border-white/5"></div>
             <h3 id="modal-title" class="text-3xl font-black text-gamer-blue mb-2 uppercase italic tracking-tighter text-left"></h3>
-            <div class="bg-white/5 p-6 rounded-2xl mb-6 text-left border border-white/5 flex justify-between items-center">
-                <div class="text-left text-left">
+            <div class="bg-white/5 p-6 rounded-2xl mb-6 text-left border border-white/5 flex justify-between items-center text-left">
+                <div class="text-left">
                     <span id="modal-price" class="text-4xl font-black text-white tracking-tighter"></span>
-                    <span class="text-gamer-blue text-[10px] block font-bold uppercase tracking-widest mt-1 text-left">Preço no Pix</span>
+                    <span class="text-gamer-blue text-[10px] block font-bold uppercase tracking-widest mt-1">Preço no Pix</span>
                 </div>
-                <div class="text-right text-left"><p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-none mb-1">Receba no</p><p class="text-[10px] text-white font-black italic">WhatsApp</p></div>
+                <div class="text-right"><p class="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-none mb-1 text-left">Receba no</p><p class="text-[10px] text-white font-black italic text-left">WhatsApp</p></div>
             </div>
-            <div class="text-left mb-6 text-left">
-                <p class="text-[10px] font-bold text-gamer-blue uppercase tracking-widest mb-3">Lista Completa de Jogos:</p>
-                <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-56 overflow-y-auto custom-scroll pr-2 whitespace-pre-wrap text-left border-t border-white/5 pt-3"></div>
+            <div class="text-left mb-6">
+                <p class="text-[10px] font-bold text-gamer-blue uppercase tracking-widest mb-3">Lista de Jogos Inclusos:</p>
+                <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-56 overflow-y-auto custom-scroll pr-2 whitespace-pre-wrap border-t border-white/5 pt-3 text-left"></div>
             </div>
             <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs text-center outline-none focus:border-gamer-blue transition mb-4">
-            <button id="btnComprar" class="w-full bg-gamer-blue text-black py-5 rounded-2xl font-black uppercase text-xs shadow-xl active:scale-95 transition">Comprar via Pix</button>
+            <button id="btnComprar" class="w-full bg-gamer-blue text-black py-5 rounded-2xl font-black uppercase text-xs shadow-xl active:scale-95 transition font-bold">Comprar via Pix</button>
         </div>
     </div>
 
@@ -85,14 +84,7 @@
         let selecionado = {};
 
         const combos = [
-            { 
-                name: "Combo Elite +125 Jogos", 
-                price: "89,90", 
-                isElite: true, 
-                badge: "O Melhor", 
-                img: ["https://i.postimg.cc/yYGPChpY/library-600x900-2x.jpg", "https://i.postimg.cc/43QNV5jP/images-(4).webp", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", "https://i.postimg.cc/s2Y1KyGq/images-(3).webp"], 
-                games: "🚀 COMBO ELITE +125 JOGOS (BIBLIOTECA COMPLETA):\n\nResident Evil Requiem\n\nThe Last of Us Part II Remastered\n\nThe Last of Us Part I\n\nBlack Myth: Wukong\n\nELDEN RING\n\nHollow Knight: Silksong\n\nDARK SOULS: REMASTERED\n\nDARK SOULS II: Scholar of the First Sin\n\nDARK SOULS III Deluxe Edition\n\nForza Horizon 5\n\nForza Horizon 4\n\nGod of War\n\nBeamNG.drive\n\nDEATH STRANDING DIRECTORS CUT\n\nMegabonk\n\n171\n\nEuro Truck Simulator 2\n\nAmerican Truck Simulator + 18 DLC\n\nResident Evil 2 Remake\n\nResident Evil 3 Remake\n\nResident Evil 4 Remake + DLC\n\nResident Evil 6\n\nResident Evil 7 Biohazard\n\nResident Evil Village\n\nDOOM (2016)\n\nDOOM Eternal\n\nCuphead + DLC\n\nDead Cells\n\nDRAGON BALL FighterZ\n\nMortal Kombat 1 Ultimate\n\nLEGO Batman: The Videogame\n\nLEGO Batman 2: DC Super Heroes\n\nLEGO Batman 3: Beyond Gotham\n\nLEGO Marvel Super Heroes\n\nLEGO Marvel Super Heroes 2\n\nLEGO MARVELs Avengers\n\nUNCHARTED: Coleção Legado dos Ladrões\n\nDead Space REMAKE\n\nMETAL GEAR RISING: REVENGEANCE\n\nMETAL GEAR SOLID V: GROUND ZEROES\n\nBatman: Arkham City GOTY\n\nBatman: Arkham Origins\n\nBatman: Arkham Knight GOTY\n\nMortal Kombat 11 Ultimate\n\nMortal Kombat XL\n\nDevil May Cry 5 + Vergil\n\nNieR:Automata\n\nDoki Doki Literature Club Plus!\n\nDying Light\n\nFallout 4\n\nGrim Dawn\n\nHades\n\nInjustice 2 Deluxe\n\nInjustice: Gods Among Us Ultimate Edition\n\nNioh: Complete Edition\n\nHotline Miami\n\nHotline Miami 2: Wrong Number\n\nHeavy Rain\n\nDays Gone\n\nHellblade: Senuas Sacrifice\n\nMad Max\n\nMiddle-earth: Shadow of Mordor GOTY\n\nMiddle-earth: Shadow of War GOTY\n\nLeft 4 Dead 2\n\nMETAL SLUG\n\nMETAL SLUG 2\n\nMETAL SLUG 3\n\nMETAL SLUG x\n\nNo Mans Sky\n\nMetro 2033 Redux\n\nThe Walking Dead: The Telltale Definitive Series\n\nThe Witcher 3: Wild Hunt\n\nRise of the Tomb Raider\n\nTomb Raider\n\nSubnautica\n\nSleeping Dogs: Definitive Edition\n\nStreet Fighter V\n\nDont Starve\n\nDont Starve Together\n\n7 Days to Die\n\nA Lenda do Herói - Edição Definitiva\n\nDetroit: Become Human\n\nAlice: Madness Returns\n\nLittle Nightmares\n\nARK: Survival Evolved\n\nBayonetta\n\nMortal Shell\n\Muse Dash\n\nProject CARS\n\nThe Forest\n\nState of Decay 2\n\nSunset Overdrive\n\nTotally Accurate Battle Simulator\n\nVampire Survivors\n\nULTIMATE MARVEL VS. CAPCOM 3\n\nJust Cause 3\n\nBioShock Remastered\n\nCrash Bandicoot N. Sane Trilogy\n\nControl Ultimate Edition\n\nCall of Juarez: Gunslinger\n\nCastlevania: Lords of Shadow\n\nCompany of Heroes 2\n\nGreen Hell\n\nDead Space 2\n\nDarksiders Warmastered Edition\n\nDead Island Definitive Edition\n\nDEAD RISING\n\nDead Rising 3 Apocalypse Edition\n\nDescenders\n\nDishonored\n\nDishonored 2\n\nDisney Pixar Cars\n\nBeyond: Two Souls\n\nHitman: Absolution\n\nMy Friend Pedro\n\nHalf-Life 2\n\nHatred\n\nJourney\n\nMafia (2002)\n\nPlants vs. Zombies GOTY Edition\n\nPortal\n\nPortal 2\n\nRyse: Son of Rome\n\nSniper Elite 3\n\nSUPER CHICKEN JUMPER\n\nZueirama" 
-            },
+            { name: "Combo Elite +125 Jogos", price: "89,90", isElite: true, badge: "Destaque", img: ["https://i.postimg.cc/yYGPChpY/library-600x900-2x.jpg", "https://i.postimg.cc/43QNV5jP/images-(4).webp", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", "https://i.postimg.cc/s2Y1KyGq/images-(3).webp"], games: "🚀 COMBO ELITE +125 JOGOS (BIBLIOTECA COMPLETA):\n\nResident Evil Requiem\n\nThe Last of Us Part II Remastered\n\nThe Last of Us Part I\n\nBlack Myth: Wukong\n\nELDEN RING\n\nHollow Knight: Silksong\n\nDARK SOULS: REMASTERED\n\nDARK SOULS II: Scholar of the First Sin\n\nDARK SOULS III Deluxe Edition\n\nForza Horizon 5\n\nForza Horizon 4\n\nGod of War\n\nBeamNG.drive\n\nDEATH STRANDING DIRECTORS CUT\n\nMegabonk\n\n171\n\nEuro Truck Simulator 2\n\nAmerican Truck Simulator + 18 DLC\n\nResident Evil 2 Remake\n\nResident Evil 3 Remake\n\nResident Evil 4 Remake + DLC\n\nResident Evil 6\n\nResident Evil 7 Biohazard\n\nResident Evil Village\n\nDOOM (2016)\n\nDOOM Eternal\n\nCuphead + DLC\n\nDead Cells\n\nDRAGON BALL FighterZ\n\nMortal Kombat 1 Ultimate\n\nLEGO Batman: The Videogame\n\nLEGO Batman 2: DC Super Heroes\n\nLEGO Batman 3: Beyond Gotham\n\nLEGO Marvel Super Heroes\n\nLEGO Marvel Super Heroes 2\n\nLEGO MARVELs Avengers\n\nUNCHARTED: Coleção Legado dos Ladrões\n\nDead Space REMAKE\n\nMETAL GEAR RISING: REVENGEANCE\n\nMETAL GEAR SOLID V: GROUND ZEROES\n\nBatman: Arkham City GOTY\n\nBatman: Arkham Origins\n\nBatman: Arkham Knight GOTY\n\nMortal Kombat 11 Ultimate\n\nMortal Kombat XL\n\nDevil May Cry 5 + Vergil\n\nNieR:Automata\n\nDoki Doki Literature Club Plus!\n\nDying Light\n\nFallout 4\n\nGrim Dawn\n\nHades\n\nInjustice 2 Deluxe\n\nInjustice: Gods Among Us Ultimate Edition\n\nNioh: Complete Edition\n\nHotline Miami\n\nHotline Miami 2: Wrong Number\n\nHeavy Rain\n\nDays Gone\n\nHellblade: Senuas Sacrifice\n\nMad Max\n\nMiddle-earth: Shadow of Mordor GOTY\n\nMiddle-earth: Shadow of War GOTY\n\nLeft 4 Dead 2\n\nMETAL SLUG\n\nMETAL SLUG 2\n\nMETAL SLUG 3\n\nMETAL SLUG x\n\nNo Mans Sky\n\nMetro 2033 Redux\n\nThe Walking Dead: The Telltale Definitive Series\n\nThe Witcher 3: Wild Hunt\n\nRise of the Tomb Raider\n\nTomb Raider\n\nSubnautica\n\nSleeping Dogs: Definitive Edition\n\nStreet Fighter V\n\nDont Starve\n\nDont Starve Together\n\n7 Days to Die\n\nA Lenda do Herói - Edição Definitiva\n\nDetroit: Become Human\n\nAlice: Madness Returns\n\nLittle Nightmares\n\nARK: Survival Evolved\n\nBayonetta\n\nMortal Shell\n\Muse Dash\n\nProject CARS\n\nThe Forest\n\nState of Decay 2\n\nSunset Overdrive\n\nTotally Accurate Battle Simulator\n\nVampire Survivors\n\nULTIMATE MARVEL VS. CAPCOM 3\n\nJust Cause 3\n\nBioShock Remastered\n\nCrash Bandicoot N. Sane Trilogy\n\nControl Ultimate Edition\n\nCall of Juarez: Gunslinger\n\nCastlevania: Lords of Shadow\n\nCompany of Heroes 2\n\nGreen Hell\n\nDead Space 2\n\nDarksiders Warmastered Edition\n\nDead Island Definitive Edition\n\nDEAD RISING\n\nDead Rising 3 Apocalypse Edition\n\nDescenders\n\nDishonored\n\nDishonored 2\n\nDisney Pixar Cars\n\nBeyond: Two Souls\n\nHitman: Absolution\n\nMy Friend Pedro\n\nHalf-Life 2\n\nHatred\n\nJourney\n\nMafia (2002)\n\nPlants vs. Zombies GOTY Edition\n\nPortal\n\nPortal 2\n\nRyse: Son of Rome\n\nSniper Elite 3\n\nSUPER CHICKEN JUMPER\n\nZueirama" },
             { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://i.postimg.cc/s2Y1KyGq/images-(3).webp", games: "Resident Evil Requiem\n\nLançamento Oficial 2026" },
             { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/TY5dCGZK/images-(5).webp", games: "The Last of Us Part I\n\nThe Last of Us Part II Remastered" },
             { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/43QNV5jP/images-(4).webp", games: "God of War Ragnarök\n\nGod of War (2018)" },
@@ -100,13 +92,13 @@
             { name: "PES 21 + Jurassic World 2", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "PES 2021 Atualizado\n\nJurassic World Evolution 2" },
             { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2 Remake\n\nRE 3 Remake\n\nRE 4 Remake\n\nRE Village\n\nRE 7 Biohazard" },
             { name: "Ghost + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "Ghost of Tsushima\n\nMonster Hunter Rise" },
-            { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 9\n\nMK 10\n\nMK 11\n\nDBZ FighterZ" },
+            { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 9, 10, 11\n\nDBZ FighterZ" },
             { name: "Combo Dragon Ball", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1790600/library_600x900_2x.jpg", games: "Sparking! ZERO\n\nDBZ Kakarot\n\nDBZ FighterZ" },
             { name: "Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake Oficial" },
             { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered\n\nSpider-Man Miles Morales" },
             { name: "Demon Slayer 2", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "Hinokami Chronicles 2" },
-            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Batman Arkham Knight\n\nBatman Arkham City\n\nBatman Arkham Origins\n\nBatman Arkham Asylum" },
-            { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza Horizon 5 Premium\n\nForza Horizon 4 Premium" },
+            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Saga completa Batman Arkham" },
+            { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza 5 e 4 Edições Premium" },
             { name: "Hogwarts + Sons of Forest", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900_2x.jpg", games: "Hogwarts Legacy\n\nSons of the Forest" },
             { name: "EA FC 26 + F1", price: "20,00", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "EA FC 2026\n\nF1 2026 Sports Pack" },
             { name: "Naruto Storm Saga", price: "20,00", img: "https://i.postimg.cc/zvs19b97/images-(14).jpg", games: "Storm 3 Full Burst\n\nStorm 4 Road to Boruto\n\nStorm Connections" },
@@ -117,7 +109,7 @@
             { name: "Skyrim + Fallout Saga", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900_2x.jpg", games: "Skyrim\n\nFallout 4\n\nFallout 76" },
             { name: "Metal Gear Saga + Rising", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2113400/library_600x900_2x.jpg", games: "MGS V Phantom Pain\n\nMGS Rising\n\nMaster Collection" },
             { name: "Combo Uncharted", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games: "Uncharted 4\n\nUncharted: Lost Legacy" },
-            { name: "Devil May Cry 1 ao 5", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601150/library_600x900_2x.jpg", games: "DMC 1, 2, 3\n\nDMC 4\n\nDMC 5" },
+            { name: "Devil May Cry 1 ao 5", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/601150/library_600x900_2x.jpg", games: "DMC 1, 2, 3, 4, 5" },
             { name: "Palworld + DB Xenoverse 2", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1623730/library_600x900_2x.jpg", games: "Palworld\n\nDB Xenoverse 2" },
             { name: "BG3 + The Quarry + Zoo", price: "29,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1086940/library_600x900_2x.jpg", games: "Baldur's Gate 3\n\nThe Quarry\n\nPlanet Zoo" },
             { name: "Little Nightmares 1/2/3", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/424840/library_600x900_2x.jpg", games: "Little Nightmares I\n\nLittle Nightmares II\n\nLittle Nightmares III" },
@@ -138,7 +130,7 @@
             list.forEach(c => {
                 let img = c.isElite ? `<div class="grid-capas">${c.img.map(u => `<img src="${u}">`).join('')}</div>` : `<img src="${c.img}" class="img-square">`;
                 let badge = c.badge ? `<span class="badge">${c.badge}</span>` : '';
-                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${badge}<div class="img-container">${img}</div><div class="p-4 text-left flex-grow flex flex-col justify-end text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1 text-left">${c.name}</h4><span class="text-sm font-black italic text-left text-white">R$ ${c.price}</span></div></div>`;
+                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${badge}<div class="img-container">${img}</div><div class="p-4 flex-grow flex flex-col justify-end text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left text-left">R$ ${c.price}</span></div></div>`;
             });
         }
 
@@ -147,4 +139,10 @@
             document.getElementById('modal-title').innerText = selecionado.name;
             document.getElementById('modal-price').innerText = "R$ " + selecionado.price;
             document.getElementById('modal-list').innerText = selecionado.games;
-            document.getElementById('modal-hea
+            document.getElementById('modal-header-img').innerHTML = selecionado.isElite ? `<div class="grid-capas h-full">${selecionado.img.map(u => `<img src="${u}" class="w-full h-full object-cover">`).join('')}</div>` : `<img src="${selecionado.img}" class="w-full h-full object-cover">`;
+            document.getElementById('gameModal').style.display = 'flex';
+        }
+
+        document.getElementById('btnComprar').onclick = () => {
+            const email = document.getElementById('cEmail').value;
+     
