@@ -9,7 +9,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { 'gamer-bg': '#02040a', 'gamer-card': '#0d111a', 'gamer-blue': '#00a2ff' }
+                    colors: { 'gamer-bg': '#02040a', 'gamer-card': '#0d111a', 'gamer-blue': '#00a2ff', 'gamer-green': '#00ff88' }
                 }
             }
         }
@@ -43,11 +43,11 @@
                 <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> <span>On-line</span>
             </div>
         </div>
-        <a href="https://wa.me/5577999451274" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase shadow-[0_0_15px_rgba(0,162,255,0.4)]">Suporte</a>
+        <a href="https://wa.me/5577999451274" class="bg-gamer-blue text-black px-5 py-2 rounded-full font-bold text-[10px] uppercase">Suporte</a>
     </nav>
 
     <header class="p-10 text-left">
-        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none text-left">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
+        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
         <input type="text" id="mainSearch" placeholder="O que você quer jogar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue text-sm">
     </header>
 
@@ -64,7 +64,6 @@
             </div>
             <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-48 overflow-y-auto custom-scroll pr-2 whitespace-pre-wrap border-t border-white/5 pt-3 mb-4"></div>
             <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
-            
             <button id="mainBuyBtn" onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
                 Pagar via Pix
             </button>
@@ -79,12 +78,17 @@
         const combos = [
             { 
                 name: "Combo Elite +125 Jogos", price: "89,90", isElite: true, badge: "🔥 TOP 1", 
-                img: ["https://i.postimg.cc/yYGPChpY/library-600x900-2x.jpg", "https://i.postimg.cc/43QNV5jP/images-(4).webp", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", "https://i.postimg.cc/s2Y1KyGq/images-(3).webp"], 
+                img: [
+                    "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg", 
+                    "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", 
+                    "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", 
+                    "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg"
+                ], 
                 games: "🚨 INCLUI: RESIDENT EVIL REQUIEM (Lançamento)\n\nTOP 50 JOGOS DA CONTA:\n\nBlack Myth: Wukong\n\nElden Ring + DLC\n\nGod of War Ragnarök\n\nSpider-Man 2\n\nGhost of Tsushima\n\nTLOU Part I & II\n\nDark Souls Trilogy\n\nForza Horizon 5 & 4\n\nAmerican Truck Sim\n\nEuro Truck Sim 2\n\nRE 4, 3, 2 Remake\n\nRE Village & RE 7\n\nDoom Eternal\n\nCuphead + DLC\n\nDead Cells\n\nDB FighterZ\n\nMK 1 Ultimate\n\nSaga LEGO Batman\n\nSaga LEGO Marvel\n\nUncharted Saga\n\nDead Space Remake\n\nMetal Gear Rising\n\nBatman Arkham Saga\n\nMK 11 Ultimate\n\nDMC 5 + Vergil\n\nNieR:Automata\n\nDying Light\n\nFallout 4\n\nHades\n\nInjustice 2\n\nHotline Miami\n\nDays Gone\n\nShadow of War\n\nThe Witcher 3\n\nRise of Tomb Raider\n\nDetroit: Become Human\n\nLittle Nightmares\n\nARK Survival\n\nState of Decay 2\n\nBioShock Remake\n\nCrash Trilogy\n\nDishonored 2\n\nPortal 1 & 2\n\n... E MUITO MAIS (+100 JOGOS)!" 
             },
-            { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://i.postimg.cc/s2Y1KyGq/images-(3).webp", games: "Resident Evil Requiem\n\nLançamento Oficial 2026" },
-            { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/TY5dCGZK/images-(5).webp", games: "TLOU Part I\n\nTLOU Part II Remastered" },
-            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/43QNV5jP/images-(4).webp", games: "God of War Ragnarök\n\nGod of War (2018)" },
+            { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "Resident Evil Requiem\n\nLançamento Oficial 2026 HD" },
+            { name: "Combo The Last of Us", price: "30,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888590/library_600x900_2x.jpg", games: "The Last of Us Part I\n\nThe Last of Us Part II Remastered" },
+            { name: "Combo God of War", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1593500/library_600x900_2x.jpg", games: "God of War Ragnarök\n\nGod of War (2018)" },
             { name: "Combo LEGO Master", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO (16 Jogos)" },
             { name: "PES 21 + Jurassic World 2", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "PES 2021 Atualizado\n\nJurassic World Evolution 2" },
             { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2 Remake, 3, 4, Village e RE7" },
@@ -94,11 +98,11 @@
             { name: "Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake Oficial" },
             { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered\n\nMiles Morales" },
             { name: "Demon Slayer 2", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "Hinokami Chronicles 2" },
-            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Saga completa Batman Arkham" },
+            { name: "Batman Arkham Collection", price: "23,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Arkham Knight, City, Origins, Asylum" },
             { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza 5 e 4 Edições Premium" },
             { name: "Hogwarts + Sons of Forest", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900_2x.jpg", games: "Hogwarts Legacy\n\nSons of the Forest" },
-            { name: "EA FC 26 + F1", price: "20,00", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "EA FC 2026\n\nF1 2026 Sports" },
-            { name: "Naruto Storm Saga", price: "20,00", img: "https://i.postimg.cc/zvs19b97/images-(14).jpg", games: "Storm 3, 4 e Connections" },
+            { name: "EA FC 26 + F1", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1922500/library_600x900_2x.jpg", games: "EA FC 2026\n\nF1 2026 Sports" },
+            { name: "Naruto Storm Saga", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1023330/library_600x900_2x.jpg", games: "Storm 3, 4 e Connections" },
             { name: "Project Zomboid + Subnautica", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108600/library_600x900_2x.jpg", games: "Zomboid\n\nSubnautica Below Zero" },
             { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "Euro Truck 2\n\nSnowRunner" },
             { name: "Stranded + Cities + Age II", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/313120/library_600x900_2x.jpg", games: "Stranded Deep\n\nCities Skylines\n\nAge II" },
@@ -126,13 +130,13 @@
             const grid = document.getElementById('combos'); grid.innerHTML = '';
             list.forEach(c => {
                 let img = c.isElite ? `<div class="grid-capas">${c.img.map(u => `<img src="${u}">`).join('')}</div>` : `<img src="${c.img}" class="img-square">`;
-                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left flex-grow flex flex-col justify-end"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left">R$ ${c.price}</span></div></div>`;
+                grid.innerHTML += `<div class="card-game" onclick="openMod('${c.name}')">${c.badge ? `<span class="badge">${c.badge}</span>`:''}<div class="img-container">${img}</div><div class="p-4 text-left"><h4 class="text-[8px] font-bold text-gray-500 uppercase truncate mb-1">${c.name}</h4><span class="text-sm font-black italic text-white text-left text-left">R$ ${c.price}</span></div></div>`;
             });
         }
 
         function openMod(name) {
             selecionado = combos.find(x => x.name === name);
-            pixCopiado = false; // Reseta o estado ao abrir
+            pixCopiado = false;
             const btn = document.getElementById('mainBuyBtn');
             btn.innerText = "Pagar via Pix";
             btn.style.backgroundColor = "#00a2ff";
@@ -146,25 +150,19 @@
 
         function handlePurchase() {
             const email = document.getElementById('cEmail').value;
-            if(!email.includes('@')) { alert('Por favor, coloque seu e-mail para entrega!'); return; }
-            
+            if(!email.includes('@')) { alert('E-mail necessário!'); return; }
             const btn = document.getElementById('mainBuyBtn');
 
             if (!pixCopiado) {
-                // Passo 1: Copiar o Pix
                 const dummy = document.createElement("textarea"); document.body.appendChild(dummy);
                 dummy.value = MINHA_CHAVE_PIX; dummy.select(); document.execCommand("copy"); document.body.removeChild(dummy);
-                
                 const toast = document.getElementById('pixToast');
                 toast.classList.add('show');
                 setTimeout(() => toast.classList.remove('show'), 2000);
-                
-                // Mudar o botão para o estado de confirmação
                 btn.innerText = "JÁ FIZ O PAGAMENTO ✅";
-                btn.style.backgroundColor = "#00ff88"; // Verde Gamer
+                btn.style.backgroundColor = "#00ff88";
                 pixCopiado = true;
             } else {
-                // Passo 2: Ir para o WhatsApp
                 window.open(`https://wa.me/5577999451274?text=${encodeURIComponent("Olá Nicolas! Já fiz o pagamento de R$ "+selecionado.price+" pelo "+selecionado.name+". E-mail para entrega: "+email)}`);
             }
         }
