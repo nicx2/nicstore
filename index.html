@@ -51,6 +51,8 @@
         <input type="text" id="mainSearch" placeholder="O que você quer jogar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue text-sm transition shadow-2xl">
     </header>
 
+    <div id="loading" style="text-align:center; padding: 20px; color: #00a2ff; font-weight: bold;">Carregando combos... se não sumir, avise o Nicolas!</div>
+
     <section id="combos" class="game-grid pb-32"></section>
 
     <div id="gameModal" class="modal" onclick="closeModal()">
@@ -71,11 +73,6 @@
     </div>
 
     <script>
-        // Rastreador de erros de tela
-        window.onerror = function(msg, url, line) {
-            document.getElementById('combos').innerHTML = '<div style="color:red; padding: 20px; font-weight: bold;">ERRO NO CÓDIGO: ' + msg + ' na linha ' + line + '</div>';
-        };
-
         const MINHA_CHAVE_PIX = "00020101021126360014br.gov.bcb.pix0114+55779994512745204000053039865802BR5918NICOLAS N PINHEIRO6013VITORIA DA CO62070503***63049DCD";
         let selecionado = {};
         let pixCopiado = false;
@@ -114,7 +111,7 @@
             { name: "Pack SAO", price: "22,50", img: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1009290/library_600x900_2x.jpg", games: "Sword Art Online Lost Song<br>Sword Art Online Fatal Bullet<br>Sword Art Online Alicization Lycoris" },
             { name: "Resident Evil 9 Requiem", price: "59,90", badge: "2026", img: "https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", games: "Lançamento Resident Evil Requiem." },
             { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/CKTKfy4J/20d7ce3b-0abd-4dd3-b433-51c013da4865.jpg", games: "The Last of Us Part I e II Remastered." },
-            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "God of War Ragnarok + God of War (2018)." },
+            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "God of War Ragnarok + God of War 2018." },
             { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2, 3, 4 Remake, Village e 7." },
             { name: "Ghost + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "Ghost of Tsushima + Monster Hunter Rise." },
             { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 11 Ultimate + DBZ FighterZ." },
@@ -126,7 +123,8 @@
             { name: "Project Zomboid + Subnautica", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108600/library_600x900_2x.jpg", games: "Zomboid + Subnautica Below Zero." },
             { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "Euro Truck 2 + SnowRunner." },
             { name: "Silent Hill 2 REMAKE", price: "13,00", badge: "PROMO", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake Oficial." },
-            { name: "Combo LEGO Master", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO (16 Jogos)." },
+            { name: "Combo LEGO Master", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO 16 Jogos." },
             { name: "Combo Cyberpunk + Starfield", price: "35,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900_2x.jpg", games: "Cyberpunk 2077 + Starfield." },
             { name: "Combo Horizon", price: "24,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1151640/library_600x900_2x.jpg", games: "Horizon Forbidden West + Zero Dawn." },
-            { name: "Combo Uncharted + Days Gone", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games
+            { name: "Combo Uncharted + Days Gone", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659420/library_600x900_2x.jpg", games: "Uncharted Legacy of Thieves + Days Gone." },
+            { name: "Combo Sekiro + Elden Ring", price: "35,00", img: "https
