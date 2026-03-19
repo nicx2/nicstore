@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NICSTORE | Catálogo Completo</title>
+    <title>NICSTORE | Catálogo Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -47,7 +47,7 @@
     </nav>
 
     <header class="p-10 text-left">
-        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
+        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none text-left">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
         <input type="text" id="mainSearch" placeholder="O que você quer jogar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue text-sm transition shadow-2xl">
     </header>
 
@@ -78,29 +78,36 @@
         const combos = [
             // SUPER CONTA
             { 
-                name: "CONTA GAMER 200+ JOGOS", price: "89,90", isElite: true, badge: "🔥 TOP 1", 
+                name: "CONTA GAMER 200+ JOGOS", price: "89,90", isElite: true, badge: "💎 TOP 1", 
                 img: ["https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", "https://i.postimg.cc/CKTKfy4J/20d7ce3b-0abd-4dd3-b433-51c013da4865.jpg", "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg"], 
                 games: "TODOS OS JOGOS SONY + DARK SOULS + RE REMAKES + HOGWARTS LEGACY + SPIDER-MAN + GOD OF WAR RAGNAROK E MUITO MAIS!" 
             },
-            // NOVOS PACKS R$ 39,90
-            { name: "PACK SONY", price: "39,90", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "TLOU I & II, Spider-Man, Ghost of Tsushima, God of War Ragnarok, Horizon Forbidden West, Uncharted, Days Gone, Detroit." },
-            { name: "PACK RESIDENT EVIL", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 0, RE 1, Revelations 1/2, RE 2, 3, 4 Remakes, RE 5, 6, 7 e Village + DLCs." },
-            { name: "PACK CALL OF DUTY", price: "39,90", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "Saga COD Completa do clássico ao MW Remastered." },
-            { name: "PACK DARK SOULS", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "DS I, II, III + Elden Ring + DLC Shadow of Erdtree." },
-            { name: "PACK TERROR", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg", games: "Outlast, Alien, Dead Space, The Quarry, Visage." },
-            { name: "PACK ANIME", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "Naruto, Demon Slayer, Jujutsu Kaisen, JoJo's." },
-            { name: "PACK SOBREVIVÊNCIA", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1623730/library_600x900_2x.jpg", games: "ARK, Palworld, No Man's Sky, Valheim." },
-            { name: "PACK SIMULATOR", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2670630/library_600x900_2x.jpg", games: "Euro Truck, Supermarket Sim, Contraband, Raft." },
-            // COMBOS ANTIGOS (Links atualizados)
-            { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", games: "Resident Evil Requiem - Lançamento Oficial." },
+            // NOVOS PACKS INDIVIDUAIS R$ 39,90
+            { name: "🚀 PACK SONY", price: "39,90", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "TLOU I & II, Spider-Man, Ghost of Tsushima, God of War Ragnarok, Horizon Forbidden West, Uncharted, Days Gone, Detroit." },
+            { name: "🚀 PACK RESIDENT EVIL", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 0 até o Village e RE 4 Remake Gold Edition." },
+            { name: "🚀 PACK CALL OF DUTY", price: "39,90", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "Saga COD Clássica e Modern Warfare Remastered." },
+            { name: "🚀 PACK DARK SOULS", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", games: "DS I, II, III + Elden Ring + DLC." },
+            { name: "🚀 PACK TERROR", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg", games: "Outlast, Alien, Dead Space Remake, The Quarry." },
+            { name: "🚀 PACK ANIME", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1490890/library_600x900_2x.jpg", games: "Naruto Storm, Demon Slayer, Jujutsu Kaisen." },
+            { name: "🚀 PACK SOBREVIVÊNCIA", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1623730/library_600x900_2x.jpg", games: "ARK, Palworld, No Man's Sky, Green Hell." },
+            { name: "🚀 PACK SIMULATOR", price: "39,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2670630/library_600x900_2x.jpg", games: "Euro Truck, Supermarket Sim, Contraband, Raft." },
+            // TODOS OS OUTROS COMBOS MANTIDOS UM POR UM
+            { name: "Resident Evil 9 Requiem", price: "59,90", badge: "Novo", img: "https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", games: "Resident Evil Requiem Oficial." },
             { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/CKTKfy4J/20d7ce3b-0abd-4dd3-b433-51c013da4865.jpg", games: "The Last of Us Part I & II Remastered." },
-            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "GoW Ragnarok + GoW (2018)." },
-            { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "Saga RE Remake: 2, 3, 4, Village e 7." },
+            { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "God of War Ragnarok + God of War (2018)." },
+            { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2, 3, 4 Remake, Village e 7." },
             { name: "Ghost + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "Ghost of Tsushima + Monster Hunter Rise." },
+            { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 11 Ultimate + DBZ FighterZ." },
+            { name: "Combo Dragon Ball", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1790600/library_600x900_2x.jpg", games: "Sparking! ZERO + Kakarot." },
+            { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered + Miles Morales." },
             { name: "Forza Horizon 5 + 4 Premium", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza Horizon 5 & 4 Premium." },
-            { name: "EA FC 26 + F1", price: "20,00", img: "https://i.postimg.cc/G2BLVC4t/images-(15).jpg", games: "EA FC 2026 + F1 2026 Sports." },
-            { name: "Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake Oficial." },
-            { name: "Combo LEGO Master", price: "13,00", badge: "PROMO", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO (16 Jogos)." }
+            { name: "Hogwarts + Sons of Forest", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900_2x.jpg", games: "Hogwarts Legacy + Sons of Forest." },
+            { name: "EA FC 26 + F1", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1922500/library_600x900_2x.jpg", games: "EA FC 2026 + F1 2026 Sports." },
+            { name: "Project Zomboid + Subnautica", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108600/library_600x900_2x.jpg", games: "Zomboid + Subnautica Below Zero." },
+            { name: "Truck Sim + SnowRunner", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/227300/library_600x900_2x.jpg", games: "Euro Truck 2 + SnowRunner." },
+            { name: "Silent Hill 2 REMAKE", price: "13,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2124490/library_600x900_2x.jpg", games: "Silent Hill 2 Remake." },
+            { name: "Combo LEGO Master", price: "13,00", badge: "PROMO", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21000/library_600x900_2x.jpg", games: "Saga completa LEGO (16 Jogos)." },
+            { name: "Palworld + DB Xenoverse 2", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1623730/library_600x900_2x.jpg", games: "Palworld + DBXV2." }
         ];
 
         function render(list) {
