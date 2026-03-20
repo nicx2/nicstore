@@ -57,7 +57,10 @@
                 <span class="text-gamer-blue text-[10px] font-bold uppercase tracking-widest leading-none">Via Pix</span>
             </div>
             <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-48 overflow-y-auto custom-scroll pr-2 whitespace-pre-wrap border-t border-white/5 pt-3 mb-4 text-left"></div>
-            <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
+            
+            <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-3 outline-none focus:border-gamer-blue text-white">
+            <input type="tel" id="cWhatsapp" placeholder="Seu WhatsApp (com DDD)" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
+            
             <button id="mainBuyBtn" onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
                 Pagar via Pix
             </button>
@@ -154,7 +157,11 @@
 
         function handlePurchase() {
             var email = document.getElementById('cEmail').value;
+            var whatsapp = document.getElementById('cWhatsapp').value;
+            
             if(!email.includes('@')) { alert('E-mail necessário!'); return; }
+            if(whatsapp === '') { alert('Digite seu WhatsApp para contato!'); return; }
+            
             var btn = document.getElementById('mainBuyBtn');
             
             if (!pixCopiado) {
@@ -173,7 +180,8 @@
                 btn.style.backgroundColor = "#00ff88";
                 pixCopiado = true;
             } else {
-                window.open("https://wa.me/5577999451274?text=" + encodeURIComponent("Olá Nicolas! Fiz o pagamento de R$ " + selecionado.price + " pelo " + selecionado.name + ". E-mail: " + email));
+                var msg = "Fala Nicolas! Quero comprar:\n\n🎮 *" + selecionado.name + "*\n💰 R$ " + selecionado.price + "\n📧 E-mail: " + email + "\n📱 WhatsApp: " + whatsapp;
+                window.open("https://wa.me/5577999451274?text=" + encodeURIComponent(msg));
             }
         }
 
