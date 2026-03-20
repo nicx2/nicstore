@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NICSTORE | Catálogo Oficial 2026</title>
     <script>
-        // RASTREADOR DE ERROS
+        // RASTREADOR DE ERROS BLINDADO (Mostra na hora se algo der pau)
         window.onerror = function(msg, url, line) {
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById('combos').innerHTML = '<div style="color:red; padding: 20px; font-weight: bold; text-align: center;">ERRO NO CÓDIGO: ' + msg + ' (Linha: ' + line + ')<br>Tire print e mande pro Nicolas!</div>';
-            });
+            var grid = document.getElementById('combos');
+            if(grid) {
+                grid.innerHTML = '<div style="color:red; padding: 20px; font-weight: bold; text-align: center;">🚨 ERRO NO CÓDIGO: ' + msg + ' (Linha: ' + line + ')<br>Tire uma print e mande pro Nicolas!</div>';
+            } else {
+                alert('🚨 ERRO: ' + msg + ' na linha ' + line);
+            }
         };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -182,13 +185,13 @@
                     document.getElementById('cEmail').value = savedEmail; 
                 }
             } catch(e) {
-                console.log("Navegador bloqueou o auto-save, rodando normal.");
+                console.log("Aviso: Navegador em modo restrito. Ignorando o auto-save de email.");
             }
             
             renderGames(combos);
         };
 
-        // Renderização blindada (sem Template Literals que quebram ao copiar)
+        // Renderização Profissional (Uso de Template Literals)
         function renderGames(list) {
             currentList = list;
             var grid = document.getElementById('combos');
@@ -202,13 +205,12 @@
                 if (c.isElite && Array.isArray(c.img)) {
                     var imgs = '';
                     for (var j = 0; j < c.img.length; j++) {
-                        imgs += '<img src="' + c.img[j] + '" loading="lazy">';
+                        imgs += `<img src="${c.img[j]}" loading="lazy">`;
                     }
-                    imgHtml = '<div class="grid-capas">' + imgs + '</div>';
+                    imgHtml = `<div class="grid-capas">${imgs}</div>`;
                 } else {
-                    imgHtml = '<img src="' + c.img + '" class="img-square" loading="lazy">';
+                    imgHtml = `<img src="${c.img}" class="img-square" loading="lazy">`;
                 }
                 
                 var qtd = c.games.split('<br>').length;
-                var extraText = c.name.includes('+') ? '+' : ''; 
-                var badgeHtml = c.badge 
+    
