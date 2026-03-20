@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NICSTORE | Catálogo Oficial 2026</title>
     <script>
-        // RASTREADOR DE ERROS (Pra não dar tela preta sem a gente saber)
+        // RASTREADOR DE ERROS
         window.onerror = function(msg, url, line) {
             document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('combos').innerHTML = '<div style="color:red; padding: 20px; font-weight: bold; text-align: center;">ERRO NO CÓDIGO: ' + msg + ' (Linha: ' + line + ')<br>Tire print e mande pro Nicolas!</div>';
@@ -67,7 +67,7 @@
     </nav>
 
     <header class="p-10 text-left">
-        <h2 class="text-5xl font-black mb-6 uppercase italic tracking-tighter leading-none">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
+        <h2 class="text-5xl font-black mb-8 uppercase italic tracking-tighter leading-none">CATÁLOGO <span class="text-gamer-blue text-transparent bg-clip-text bg-gradient-to-r from-gamer-blue to-purple-500">GAMES</span></h2>
         
         <input type="text" id="mainSearch" placeholder="Qual jogo você quer encontrar?" class="w-full bg-gamer-card border border-white/10 rounded-2xl px-6 py-5 text-white outline-none focus:border-gamer-blue text-sm transition shadow-2xl">
     </header>
@@ -125,7 +125,6 @@
             { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "God of War Ragnarok<br>God of War 2018." },
             { name: "Resident Evil Ultimate", price: "26,90", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/library_600x900_2x.jpg", games: "RE 2 Remake<br>RE 3 Remake<br>RE 4 Remake<br>Village<br>RE 7." },
             { name: "Ghost + MH Rise", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/library_600x900_2x.jpg", games: "Ghost of Tsushima<br>Monster Hunter Rise." },
-            { name: "Mortal Kombat + DBZ", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900_2x.jpg", games: "MK 11 Ultimate<br>DBZ FighterZ." },
             { name: "Combo Dragon Ball", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1790600/library_600x900_2x.jpg", games: "Sparking ZERO<br>Kakarot." },
             { name: "Combo Spider-Man", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", games: "Spider-Man Remastered<br>Miles Morales." },
             { name: "Forza Horizon 5 e 4", price: "26,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", games: "Forza Horizon 5<br>Forza Horizon 4 Premium." },
@@ -153,7 +152,6 @@
             { name: "Combo Street Fighter 6", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/library_600x900_2x.jpg", games: "Street Fighter 6 Ultimate Edition." },
             { name: "Combo Tekken 8", price: "30,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/library_600x900_2x.jpg", games: "Tekken 8 Deluxe Edition." },
             { name: "Combo Persona 5", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1687950/library_600x900_2x.jpg", games: "Persona 5 Royal Completo." },
-            { name: "Combo Batman Arkham", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Batman Arkham Asylum<br>City<br>Knight<br>Origins." },
             { name: "Combo Tomb Raider", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/203160/library_600x900_2x.jpg", games: "Tomb Raider<br>Rise of the Tomb Raider<br>Shadow of the Tomb Raider." },
             { name: "Combo RE Classics", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/339340/library_600x900_2x.jpg", games: "Resident Evil 0<br>Resident Evil 1<br>RE 4 Clássico<br>Resident Evil 5<br>Resident Evil 6." }
         ];
@@ -177,6 +175,16 @@
         });
 
         window.onload = function() {
+            // Tenta puxar o email salvo (protegido contra erro da guia anônima)
+            try {
+                var savedEmail = localStorage.getItem("emailCliente");
+                if(savedEmail){ 
+                    document.getElementById('cEmail').value = savedEmail; 
+                }
+            } catch(e) {
+                console.log("Navegador bloqueou o auto-save, rodando normal.");
+            }
+            
             renderGames(combos);
         };
 
@@ -202,4 +210,5 @@
                 }
                 
                 var qtd = c.games.split('<br>').length;
-                var extraText = c.name.includes('+') ? '
+                var extraText = c.name.includes('+') ? '+' : ''; 
+                var badgeHtml = c.badge 
