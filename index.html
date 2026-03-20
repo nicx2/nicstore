@@ -22,10 +22,14 @@
         .card-game:active { transform: scale(0.96); border-color: #00a2ff; }
         .img-container { width: 100%; aspect-ratio: 10/14; overflow: hidden; background: #000; position: relative; }
         .img-square { width: 100%; height: 100%; object-fit: cover; }
+        .grid-capas { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; gap: 1px; background: #000; }
+        .grid-capas img { width: 100%; height: 100%; object-fit: cover; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; padding: 15px; backdrop-filter: blur(15px); justify-content: center; align-items: center; overflow-y: auto; }
         .badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; border-radius: 6px; font-size: 7px; font-weight: 900; text-transform: uppercase; z-index: 10; background: #00a2ff; color: #000; box-shadow: 0 0 10px rgba(0,162,255,0.4); }
         #pixToast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #00a2ff; color: black; padding: 12px 24px; border-radius: 50px; font-weight: 800; font-size: 11px; z-index: 1000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,162,255,0.4); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
         #pixToast.show { top: 30px; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
     </style>
 </head>
 <body class="antialiased">
@@ -58,7 +62,7 @@
                 <span id="modal-price" class="text-3xl font-black text-white tracking-tighter"></span>
                 <span class="text-gamer-blue text-[10px] font-bold uppercase tracking-widest leading-none">Via Pix</span>
             </div>
-            <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed mb-4 text-left"></div>
+            <div id="modal-list" class="text-[11px] text-gray-400 leading-relaxed max-h-48 overflow-y-auto custom-scroll pr-2 mb-4 text-left"></div>
             <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
             <button id="mainBuyBtn" onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
                 Pagar via Pix
@@ -70,8 +74,10 @@
         const MINHA_CHAVE_PIX = "00020101021126360014br.gov.bcb.pix0114+55779994512745204000053039865802BR5918NICOLAS N PINHEIRO6013VITORIA DA CO62070503***63049DCD";
         var selecionado = {};
         var pixCopiado = false;
+        var currentList = [];
 
         const combos = [
+            { name: "Combo Elite 125+ Jogos", price: "99,90", isElite: true, badge: "💎 ELITE", img: ["https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900_2x.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900_2x.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1817070/library_600x900_2x.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/library_600x900_2x.jpg"], games: "Elden Ring<br>God of War<br>Spider Man<br>Cyberpunk 2077<br>The Witcher 3<br>Resident Evil Saga<br>Dark Souls 1 2 3<br>Sekiro<br>Horizon Zero Dawn<br>Days Gone<br>Call of Duty Saga<br>Battlefield Saga<br>Need for Speed Saga<br>Forza Horizon<br>The Last of Us<br>+125 jogos no total" },
             { name: "Resident Evil 9 Requiem", price: "59,90", badge: "2026", img: "https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", games: "Lançamento Resident Evil Requiem." },
             { name: "Combo The Last of Us", price: "30,00", img: "https://i.postimg.cc/CKTKfy4J/20d7ce3b-0abd-4dd3-b433-51c013da4865.jpg", games: "The Last of Us Part I e II Remastered." },
             { name: "Combo God of War", price: "25,00", img: "https://i.postimg.cc/rynFNRJ8/d2a78031-cad2-4ab7-919e-f5a6ba554451.jpg", games: "God of War Ragnarok + God of War 2018." },
@@ -114,25 +120,42 @@
         ];
 
         function render(list) {
+            currentList = list;
             var grid = document.getElementById('combos');
             grid.innerHTML = '';
             for (var i = 0; i < list.length; i++) {
                 var c = list[i];
+                var imgHtml = '';
+                if (c.isElite && Array.isArray(c.img)) {
+                    var imgs = '';
+                    for (var j = 0; j < c.img.length; j++) { imgs += '<img src="' + c.img[j] + '">'; }
+                    imgHtml = '<div class="grid-capas">' + imgs + '</div>';
+                } else {
+                    imgHtml = '<img src="' + c.img + '" class="img-square">';
+                }
                 var badgeHtml = c.badge ? '<span class="badge">' + c.badge + '</span>' : '';
-                grid.innerHTML += '<div class="card-game" data-id="' + i + '" onclick="openMod(this.getAttribute(\'data-id\'))">' + badgeHtml + '<div class="img-container"><img src="' + c.img + '" class="img-square"></div><div class="p-4 flex-grow flex flex-col justify-end text-left"><h4 class="text-[8px] font-bold text-gray-400 uppercase truncate mb-1 text-left">' + c.name + '</h4><span class="text-sm font-black italic text-left text-white">R$ ' + c.price + '</span></div></div>';
+                grid.innerHTML += '<div class="card-game" data-id="' + i + '" onclick="openMod(this.getAttribute(\'data-id\'))">' + badgeHtml + '<div class="img-container">' + imgHtml + '</div><div class="p-4 flex-grow flex flex-col justify-end text-left"><h4 class="text-[8px] font-bold text-gray-400 uppercase truncate mb-1 text-left">' + c.name + '</h4><span class="text-sm font-black italic text-left text-white">R$ ' + c.price + '</span></div></div>';
             }
         }
 
         function openMod(id) {
-            selecionado = combos[id];
+            selecionado = currentList[id];
             pixCopiado = false;
             var btn = document.getElementById('mainBuyBtn');
             btn.innerText = "Pagar via Pix";
             btn.style.backgroundColor = "#00a2ff";
             document.getElementById('modal-title').innerText = selecionado.name;
             document.getElementById('modal-price').innerText = "R$ " + selecionado.price;
-            document.getElementById('modal-list').innerText = selecionado.games;
-            document.getElementById('modal-header-img').innerHTML = '<img src="' + selecionado.img + '" class="w-full h-full object-cover">';
+            document.getElementById('modal-list').innerHTML = selecionado.games;
+            
+            if (selecionado.isElite && Array.isArray(selecionado.img)) {
+                var imgs = '';
+                for(var j=0; j<selecionado.img.length; j++) { imgs += '<img src="' + selecionado.img[j] + '" class="w-full h-full object-cover">'; }
+                document.getElementById('modal-header-img').innerHTML = '<div class="grid-capas h-full">' + imgs + '</div>';
+            } else {
+                document.getElementById('modal-header-img').innerHTML = '<img src="' + selecionado.img + '" class="w-full h-full object-cover">';
+            }
+            
             document.getElementById('gameModal').style.display = 'flex';
         }
 
