@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NICSTORE | Catálogo Oficial 2026</title>
+    <script>
+        // RASTREADOR DE ERROS (Se der pau, vai aparecer vermelho na tela)
+        window.onerror = function(msg, url, line) {
+            setTimeout(function() {
+                var g = document.getElementById('combos');
+                if(g) g.innerHTML = '<div style="color:red; padding: 20px; text-align: center; font-weight: bold;">🚨 ERRO: ' + msg + ' (Linha: ' + line + ')</div>';
+            }, 500);
+        };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -198,11 +207,4 @@
                     toast.classList.add('show');
                     setTimeout(function(){ toast.classList.remove('show'); }, 2000);
                 }
-                
-                btn.innerText = "ENVIAR COMPROVANTE ✅"; 
-                btn.style.backgroundColor = "#00ff88";
-                pixCopiado = true;
-            } else {
-                // Passo 2: Já copiou, agora abre o Zap!
-                var msg = "Fala Nicolas! Quero comprar:\n\n🎮 *" + selecionado.name + "*\n💰 R$ " + selecionado.price + "\n📧 E-mail: " + email;
-                window.open("https://wa.me/5577999451274?text=" +
+     
