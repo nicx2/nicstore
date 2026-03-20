@@ -28,9 +28,14 @@
         .badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; border-radius: 6px; font-size: 7px; font-weight: 900; text-transform: uppercase; z-index: 10; background: #00a2ff; color: #000; box-shadow: 0 0 10px rgba(0,162,255,0.4); }
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #00a2ff; border-radius: 10px; }
+        
+        #pixToast { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #00a2ff; color: black; padding: 12px 24px; border-radius: 50px; font-weight: 800; font-size: 11px; z-index: 1000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,162,255,0.4); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        #pixToast.show { top: 30px; }
     </style>
 </head>
 <body class="antialiased">
+
+    <div id="pixToast"><span>✅ PIX COPIADO COM SUCESSO!</span></div>
 
     <nav class="sticky top-0 z-40 bg-gamer-bg/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center px-6">
         <div class="text-left">
@@ -72,15 +77,17 @@
             
             <input type="email" id="cEmail" placeholder="Seu e-mail para entrega" class="w-full bg-black border border-white/10 rounded-2xl px-5 py-4 text-xs mb-4 outline-none focus:border-gamer-blue text-white">
             
-            <button onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
+            <button id="mainBuyBtn" onclick="handlePurchase()" class="w-full bg-gamer-blue text-black py-4 rounded-2xl font-black uppercase text-xs transition-all duration-300">
                 COMPRAR AGORA ⚡
             </button>
         </div>
     </div>
 
     <script>
+        const MINHA_CHAVE_PIX = "00020101021126360014br.gov.bcb.pix0114+55779994512745204000053039865802BR5918NICOLAS N PINHEIRO6013VITORIA DA CO62070503***63049DCD";
         var selecionado = {};
         var currentList = [];
+        var pixCopiado = false;
 
         var combos = [
             { name: "Combo Elite 125+ Jogos", price: "89,90", isElite: true, badge: "💎 ELITE", img: ["https://cdn1.epicgames.com/offer/7713e3fa4b234e0d8f553044205d53b6/EGS_TheLastofUsPartIIRemastered_NaughtyDogLLCNixxesSoftwareIronGalaxy_S2_1200x1600-2e13755a6b3fec2ee9dbcc231a1cf39c", "https://i.postimg.cc/wM0thWBT/e2c6c38a-36ab-4acc-88ff-6f4a47e6acd9.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/library_600x900_2x.jpg", "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2358720/library_600x900_2x.jpg"], games: "1. The Last of Us Part II Remastered<br>2. Resident Evil 9 Requiem<br>3. God of War Ragnarok<br>4. Black Myth: Wukong<br>5. Cyberpunk 2077<br>6. The Witcher 3: Wild Hunt<br>7. Elden Ring<br>8. Ghost of Tsushima Director's Cut<br>9. Horizon Forbidden West<br>10. Horizon Zero Dawn<br>11. Spider-Man Remastered<br>12. Spider-Man: Miles Morales<br>13. The Last of Us Part I<br>14. Resident Evil 4 Remake<br>15. Resident Evil Village<br>16. Resident Evil 2 Remake<br>17. Resident Evil 3 Remake<br>18. Resident Evil 7<br>19. Hogwarts Legacy<br>20. Baldur's Gate 3<br>21. Sekiro: Shadows Die Twice<br>22. Dark Souls III<br>23. Dark Souls Remastered<br>24. Dark Souls II<br>25. Days Gone<br>26. Uncharted: Legacy of Thieves Collection<br>27. Detroit: Become Human<br>28. Forza Horizon 5<br>29. Forza Horizon 4<br>30. EA Sports FC 26<br>31. Mortal Kombat 1<br>32. Street Fighter 6<br>33. Tekken 8<br>34. Dying Light 2 Stay Human<br>35. Dying Light<br>36. Alan Wake 2<br>37. Control Ultimate Edition<br>38. Metro Exodus<br>39. The Outlast Trials<br>40. It Takes Two<br>41. A Way Out<br>42. Starfield<br>43. Fallout 4<br>44. Skyrim Special Edition<br>45. Silent Hill 2 Remake<br>46. Cuphead<br>47. Hollow Knight<br>48. Dead Space Remake<br>49. Persona 5 Royal<br>50. Project Zomboid<br><br>+ 75 outros jogos garantidos no pacote!" },
@@ -116,9 +123,8 @@
             { name: "Combo Street Fighter 6", price: "28,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/library_600x900_2x.jpg", games: "Street Fighter 6 Ultimate Edition." },
             { name: "Combo Tekken 8", price: "30,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/library_600x900_2x.jpg", games: "Tekken 8 Deluxe Edition." },
             { name: "Combo Persona 5", price: "25,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1687950/library_600x900_2x.jpg", games: "Persona 5 Royal Completo." },
-            { name: "Combo Batman Arkham", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/208650/library_600x900_2x.jpg", games: "Batman Arkham Asylum + City + Knight + Origins." },
             { name: "Combo Tomb Raider", price: "20,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/203160/library_600x900_2x.jpg", games: "Tomb Raider + Rise + Shadow of the Tomb Raider." },
-            { name: "Combo RE Classics", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/339340/library_600x900_2x.jpg", games: "Resident Evil 0, 1, 4 Clássico, 5 e 6." }
+            { name: "Combo RE Classics", price: "22,00", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/339340/library_600x900_2x.jpg", games: "Resident Evil 0 + Resident Evil 1 + RE 4 Clássico + Resident Evil 5 + Resident Evil 6." }
         ];
 
         function render(list) {
@@ -143,6 +149,12 @@
         function openMod(id) {
             selecionado = currentList[id];
             
+            // Reseta o botão toda vez que o modal abre
+            pixCopiado = false;
+            var btn = document.getElementById('mainBuyBtn');
+            btn.innerText = "COMPRAR AGORA ⚡";
+            btn.style.backgroundColor = "#00a2ff";
+            
             document.getElementById('modal-title').innerText = selecionado.name;
             document.getElementById('modal-list').innerHTML = selecionado.games;
             
@@ -166,32 +178,31 @@
             var email = document.getElementById('cEmail').value;
             if(email === '') { alert('Digite seu e-mail para entrega!'); return; }
             
-            var msg = "Fala Nicolas! Quero comprar:\n\n🎮 *" + selecionado.name + "*\n💰 R$ " + selecionado.price + "\n📧 E-mail: " + email;
-            window.open("https://wa.me/5577999451274?text=" + encodeURIComponent(msg));
-        }
-
-        function closeModal() { document.getElementById('gameModal').style.display = 'none'; }
-        
-        document.getElementById('mainSearch').oninput = function(e) { 
-            var busca = e.target.value.toLowerCase();
-            var filtrados = combos.filter(function(c) { 
-                return c.name.toLowerCase().includes(busca) || c.games.toLowerCase().includes(busca); 
-            }); 
-            render(filtrados); 
-        };
-
-        window.onload = function() {
-            render(combos);
+            var btn = document.getElementById('mainBuyBtn');
             
-            var tempo = 600;
-            setInterval(function() {
-                var min = Math.floor(tempo / 60);
-                var sec = tempo % 60;
-                var secFormatado = sec < 10 ? '0' + sec : sec;
-                document.getElementById('timerText').innerText = "⏳ Oferta expira em " + min + ":" + secFormatado;
-                if(tempo > 0) tempo--;
-            }, 1000);
-        };
-    </script>
-</body>
-</html>
+            if (!pixCopiado) {
+                // Passo 1: Copia o PIX e muda o botão
+                try {
+                    var dummy = document.createElement("textarea");
+                    document.body.appendChild(dummy);
+                    dummy.value = MINHA_CHAVE_PIX;
+                    dummy.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(dummy);
+                } catch(e) {
+                    console.log("Falha ao copiar PIX");
+                }
+                
+                var toast = document.getElementById('pixToast');
+                if (toast) {
+                    toast.classList.add('show');
+                    setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+                }
+                
+                btn.innerText = "ENVIAR COMPROVANTE ✅"; 
+                btn.style.backgroundColor = "#00ff88";
+                pixCopiado = true;
+            } else {
+                // Passo 2: Já copiou, agora abre o Zap!
+                var msg = "Fala Nicolas! Quero comprar:\n\n🎮 *" + selecionado.name + "*\n💰 R$ " + selecionado.price + "\n📧 E-mail: " + email;
+                window.open("https://wa.me/5577999451274?text=" +
